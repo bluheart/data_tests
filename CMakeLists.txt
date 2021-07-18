@@ -4,6 +4,8 @@ project(data_tests VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
+
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
 if (MSVC)
     # warning level 4 and all warnings as errors
     add_compile_options(/W4 /WX)

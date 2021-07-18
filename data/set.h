@@ -3,12 +3,12 @@
 #define _GNU_SOURCE
 #define UNUSED __attribute__((unused))
 #include <search.h>
-#include <stdlib.h>
+#include <stddef.h>
+#include <stdint.h>
 
 typedef int (*Comparator)(const void *, const void *);
-
 typedef struct {
-    void *values;
+    void *tree;
     size_t size;
     Comparator comparator;
 } Set;  

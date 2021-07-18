@@ -2,7 +2,7 @@
 #include "data/set.h"
 
 int int_ascending(const void *a, const void *b) {
-  int left = *((int *)a), right = *((int *)b);
+  long left = *((long *)a), right = *((long *)b);
   return left - right;
 }
 
@@ -13,17 +13,36 @@ void action(const void *nodep, VISIT which, UNUSED int depth) {
             break;
         case postorder:
             datap = *(int **) nodep;
-            printf("%d\n", (*datap)*3);
+            printf("%d\n", (*datap));
             break;
         case endorder:
             break;
         case leaf:
             datap = *(int **) nodep;
-            printf("%d\n", (*datap)*3);
+            printf("%d\n", (*datap));
             break;
     }
 
 }
+void action2(const void *nodep, VISIT which, UNUSED int depth) {
+    int *datap;
+    switch (which) {
+        case preorder:
+            break;
+        case postorder:
+            datap = *(int **) nodep;
+            *datap = (*datap)*3;
+            break;
+        case endorder:
+            break;
+        case leaf:
+            datap = *(int **) nodep;
+            *datap = (*datap)*3;
+            break;
+    }
+
+}
+
 int main() {
     Set *set = set_initialize(int_ascending);
     const int a[] = {50, -1, 80, 0, -60, 3, 70, -9, 20, 4};
@@ -36,7 +55,8 @@ int main() {
         printf("%ld\n", n);
     }
     puts("conjunto cheio");
-    twalk(set->values, action);
+    twalk(set->tree, action2);
+    twalk(set->tree, action);
     set_destroy(set);   
     return 0;
 }
